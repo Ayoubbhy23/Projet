@@ -1,0 +1,103 @@
+package Firstscript;
+
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class PasserUneCommande {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		// Provide path to Chromedriver
+		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+		
+		// Instantiate ChromeWebDriver class
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		// Site access in Chrome browser
+		driver.get("https://www.decathlon.tn/");
+		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+		
+        // Taper dans le recherche Tente
+        driver.findElement(By.id("aa-search-input")).sendKeys("tente" + Keys.ENTER);
+        
+        // Choix de la tente
+        driver.findElement(By.cssSelector("#hits > div > div > ol > li:nth-child(1) > div > div > div > div > div:nth-child(3) > div > a > img")).click();
+        
+        // Ajout au panier
+        driver.findElement(By.cssSelector("#product_add_to_cart > div > div.px0.mb2.js-block--stock > div.add.js-add > button")).click();
+        
+        //driver.switchTo().frame(frame);
+        //Switch to frame
+        //driver.switchTo().activeElement();
+        //driver.switchTo().frame("modal-dialog");
+     	//Store the web element 3
+        //WebElement iframe = driver.findElement(By.cssSelector("#blockcart-modal > div"));
+        //Switch to the frame 3
+        //driver.switchTo().frame(iframe);
+        //Now we can click the button
+        //driver.findElement(By.cssSelector("#blockcart-modal > div > div > div.modal-body > div.product-information > div.block__actions > button")).click();
+        //First finding the element using any of locator stratedgy 4
+        //WebElement iframeElement = driver.findElement(By.cssSelector("#blockcart-modal > div"));
+        //now using the switch command 4
+        //driver.switchTo().frame(iframeElement);
+        // Clique en X de fermeture
+        //driver.findElement(By.xpath("//*[@id=\"blockcart-modal\"]/div/div/div[1]/button")).click();
+        
+        // Switch to frame 5 succeed
+        driver.findElement(By.cssSelector("#blockcart-modal > div")); 
+        // Clique en Continuer mes achats
+        driver.findElement(By.cssSelector("#blockcart-modal > div > div > div.modal-body > div.product-information > div.block__actions > button")).click();
+        // Recherche sac de couchage
+        driver.findElement(By.id("aa-search-input")).sendKeys("couchage");
+        //Thread.sleep(10);
+        driver.findElement(By.id("aa-search-input")).sendKeys(Keys.ENTER);
+        // Choix du sac de couchage
+        //Thread.sleep(1000);
+        driver.findElement(By.cssSelector("#hits > div > div > ol > li:nth-child(3) > div > div > div > div > div:nth-child(3) > div > a > img")).click();
+        // Ajout du sac au panier
+        driver.findElement(By.cssSelector("#product_add_to_cart > div > div.px0.mb2.js-block--stock > div.add.js-add > button")).click();
+        // Switch to frame 5 succeed
+        //Thread.sleep(3000);
+        driver.findElement(By.cssSelector("#blockcart-modal > div"));
+        // Accès au panier
+        driver.findElement(By.cssSelector("#blockcart-modal > div > div > div.modal-body > div.product-information > div.block__actions > div.checkout.cart-detailed-actions-btn > div > a")).click();
+        // Changer la quantité des sacs
+        driver.findElement(By.cssSelector("#main > div.row.js-cart-filled > div > div.col-xs-12.col-lg-8.col-xl-8 > div > div.cart-overview.js-cart > div > ul > li:nth-child(2) > div > div.product-line-grid-quantity.p0.qty.col-md-2.col-xs-4.col-lg-2 > select")).click();
+        driver.findElement(By.cssSelector("#main > div.row.js-cart-filled > div > div.col-xs-12.col-lg-8.col-xl-8 > div > div.cart-overview.js-cart > div > ul > li:nth-child(2) > div > div.product-line-grid-quantity.p0.qty.col-md-2.col-xs-4.col-lg-2 > select")).sendKeys(Keys.chord("2") + Keys.ENTER);
+        Thread.sleep(3000);
+        
+        // Supprimer le sac du panier
+        driver.findElement(By.cssSelector("#main > div.row.js-cart-filled > div > div.col-xs-12.col-lg-8.col-xl-8 > div > div.cart-overview.js-cart > div > ul > li:nth-child(2) > div > div.product-line-grid-remove.remove.col-lg-1.col-md-1.hidden-xs-down > div > a > span")).click();
+      
+        //Declare and initialise a fluent wait
+      		//FluentWait wait = new FluentWait(driver);
+      		//Specify the timout of the wait
+      		//wait.withTimeout(5000, TimeUnit.MILLISECONDS);
+      		//Sepcify polling time
+      		//wait.s(250, TimeUnit.MILLISECONDS);
+      		//Specify what exceptions to ignore
+      		//wait.until(ExpectedConditions.alertIsPresent());      
+        
+        Thread.sleep(4000);
+        // Passer la commande
+        driver.findElement(By.cssSelector("#main > div.row.js-cart-filled > div > div.col-xs-12.col-lg-4.col-xl-4 > div > div > div.hidden-xs-down > div > div > a")).click();
+        
+        // Se connecter
+        driver.findElement(By.id("input-email")).sendKeys("talanayoub@gmail.com");
+        driver.findElement(By.id("input-email")).sendKeys(Keys.ENTER);
+        
+        //Retour à la page précédante
+        driver.findElement(By.cssSelector("#app > nav > div > div:nth-child(1) > button > span")).click();
+        
+		
+	}
+
+}
