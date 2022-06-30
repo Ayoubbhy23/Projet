@@ -1,0 +1,58 @@
+package Firstscript;
+
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+
+public class EnvoyerMessage {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		// Provide path to Chromedriver
+		//System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+		
+		// Provide path to Edgedriver
+		//System.setProperty("webdriver.chrome.driver", "C:\\msedgedriver.exe");
+		//System.setProperty("webdriver.ie.driver", "C:\\msedgedriver.exe");
+		InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+		ieOptions.attachToEdgeChrome();
+		ieOptions.withEdgeExecutablePath("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+		
+		// Instantiate ChromeWebDriver class
+		  WebDriver driver = new InternetExplorerDriver(ieOptions);
+
+	    
+		//ieOptions.attachToEdgeChrome();
+		driver.manage().window().maximize();
+		
+		// Site access in Chrome browser
+		driver.get("https://www.decathlon.tn/");
+		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+		
+		// Accès réseau magasins
+        driver.findElement(By.cssSelector("#header > div > div > div:nth-child(1) > div.col-md-6.text-right.nav--secondary > a > p")).click();
+        
+        // Remplir un message
+        driver.findElement(By.cssSelector("#content > div > div.row.mb4 > div:nth-child(2) > section > form > section > div.form-group.row.mt4 > div > select")).sendKeys(Keys.chord("g"));
+        driver.findElement(By.name("fname")).sendKeys("Talan");
+        driver.findElement(By.name("lname")).sendKeys("Ayoub");
+        driver.findElement(By.name("from")).sendKeys("talanayoub@gmail.com");
+        driver.findElement(By.name("message")).sendKeys("Ce je suis en train de tester votre site web");
+        
+        Thread.sleep(3000);
+        driver.findElement(By.name("submitMessage")).sendKeys(Keys.ENTER);
+        //WebElement Notif = driver.findElement(By.cssSelector("#content > div > div.row.mb4 > div:nth-child(2) > section > form > div")); 
+        //js.executeScript("arguments[0].scrollIntoView();", Notif);
+        
+        
+	}
+	
+}
